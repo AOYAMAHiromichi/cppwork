@@ -6,10 +6,12 @@ DateFolder
 #include<string>
 //#include<experimental/filesystem>
 #include<filesystem>
+#include<fstream>
 
 int main()
 {
-    CDir dir("/home/hiro/motion_dir");
+    std::string w_dir="/home/hiro/motion_dir";
+    CDir dir(w_dir);
     int flag_get;
     flag_get=dir.get_filenames();
 
@@ -27,6 +29,8 @@ int main()
         }
         std::string f_name,day_str;
         f_name=dir.ret_filename;
+
+        
         //std::cout<<"i="<<i<<" : "<<dir.ret_filename<<std::endl;
         if (f_name.empty()==1)
         {
@@ -36,10 +40,18 @@ int main()
 
         //std::cout<<"PASS\n";
 
-        if (f_name.size()==23)
+        if ((f_name.size()==23)&&(f_name.substr(19,4)==".mp4"))
         {
             day_str=f_name.substr(3,8);
-            std::cout<<"ii="<<i<<" : "<<day_str<<std::endl;
+            //std::cout<<"ii="<<i<<" : "<<day_str<<std::endl;
+            if (!(std::filesystem::exists(w_dir+"/"+day_str)))
+            {
+                std::filesystem::create_directory(w_dir+"/"+day_str);
+            }
+
+            std::ofstream(w_dir+"/"+f_name);
+            std::filesystem::rename(w_dir+"/"+f_name,w_dir+"/"+day_str+"/"+f_name);
+
         }
 
     }

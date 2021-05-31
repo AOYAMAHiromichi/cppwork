@@ -1,6 +1,6 @@
 /* 
 CDir class CPP
-2021/05/20
+2021/05/31
 */
 #include "CDir.h"
 
@@ -53,7 +53,7 @@ CDir class CPP
 
     std::string put_date_of_file(std::string f_name,int len_of_f)
     {
-       std::string file_name= s_name;
+       std::string file_name= f_name;
        std::string ret_date;
        int len_of_file=len_of_f;
        if(len_of_file!=file_name.size())
