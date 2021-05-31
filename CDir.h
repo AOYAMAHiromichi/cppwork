@@ -25,7 +25,7 @@ public:
 
     int get_filenames();                //file name一覧をthis->file_namesに取り込む
 
-    int put_filename(int);              //引数のfile nameを返す
+    int put_filename(int);              //引数のfile nameをthis->ret_filenameで返す
 
     std::string put_date_of_file(std::string,int);      //ファイルの文字数が引数2なら　Fileの日付を返す、異なれば”ERROR"
 };
