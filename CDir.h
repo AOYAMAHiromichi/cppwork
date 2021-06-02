@@ -1,5 +1,6 @@
 /* 
 CDir_class header
+動画・写真格納のDirectoryの読み込みクラス
 2021/05/20
 */
 #pragma once
