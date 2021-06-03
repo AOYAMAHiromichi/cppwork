@@ -1,18 +1,24 @@
 /* 
 cdir_move.cpp
-動画を日別のフォルダーに移す
-CDir.h をinclude
+動画ファイル(.mp4)を日別のフォルダーに移す
+CFilenamesearch.h CDir.h をinclude
 OPTION:c++17　必要
+2021/6/3
+定数として”motion_dir”のパスをグローバルにcnst_motion_dirに持つ。
 */
+#include"CFilenamesearch.h"
 #include "CDir.h"
 #include<iostream>
 #include<string>
 #include<filesystem>
 #include<fstream>
 
+extern const std::string cnst_motion_dir;
+CFilenamesearch cfns;
+
 int main()
 {
-    std::string w_dir="/home/hiro/motion_dir";  //動画のDirectory
+    std::string w_dir=cnst_motion_dir;  //動画のDirectory
     CDir dir(w_dir);                            //クラスCDirのObject：dir
     int flag_get;
     flag_get=dir.get_filenames();               //dirにファイル名一覧を取り込む
@@ -27,15 +33,16 @@ int main()
         }
         std::string f_name,day_str;
         f_name=dir.ret_filename;
+        std::filesystem::path fs_f_name=f_name;
         if (f_name.empty()==1)
         {
             std::cout<<"File Name Empty Error!";
             exit(1);
         }
 
-        if ((f_name.size()==21)&&(f_name.substr(17,4)==".mp4"))     //file名は23文字で　拡張子は「.mp4」か？
+        if (fs_f_name.extension()==".mp4")     //拡張子は「.mp4」
         {
-            day_str=f_name.substr(3,8);                             //ファイル名から日付をget
+            day_str=cfns.get_date8(f_name);                             //ファイル名から日付をget
             if (!(std::filesystem::exists(w_dir+"/"+day_str)))      //日付のDirectoryが存在しなければ作成
             {
                 std::filesystem::create_directory(w_dir+"/"+day_str);
