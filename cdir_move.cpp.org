@@ -12,7 +12,6 @@ OPTION:c++17　必要
 #include<string>
 #include<filesystem>
 #include<fstream>
-#include<stdio.h>
 
 extern const std::string cnst_motion_dir;
 CFilenamesearch cfns;
@@ -49,13 +48,11 @@ int main()
                 std::filesystem::create_directory(w_dir+"/"+day_str);
             }
 
-            std::ofstream{w_dir+"/"+day_str+"/"+f_name};
+            std::ofstream{w_dir+"/"+f_name};
             //std::filesystem::path fp=w_dir;
             //std::filesystem::path tp=w_dir+"/"+day_str;
             //std::filesystem::rename(fp+"/"+f_name,tp+"/"+f_name);     //ファイルの移動
-            std::string from_fn=w_dir+"/"+f_name;
-            std::string to_fn=w_dir+"/"+day_str+"/"+f_name;
-            std::filesystem::rename(from_fn,to_fn);
+            std::filesystem::copy(w_dir+"/"+f_name,w_dir+"/"+day_str+"/"+f_name);
         }
     }
 }
